@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'apps.accounts',
     'apps.profiles',
     'apps.sellers',
@@ -130,3 +135,30 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "My First API",  # название проекта
+    "VERSION": "0.0.1",  # версия проекта
+    "SERVE_INCLUDE_SCHEMA": False,  # исключить эндпоинт /schema
+    # TITLE (строка): Заголовок API в документации.
+    # DESCRIPTION (строка): Краткое описание API.
+    # VERSION (строка): Версия API.
+    # SERVE_INCLUDE_SCHEMA (булево): Включать ли схему OpenAPI в Swagger UI (по умолчанию True).
+    # SWAGGER_UI_SETTINGS (словарь): Настройки для Swagger UI.
+    # ENUM_NAME_OVERRIDES (словарь): Настройка имен для элементов перечислений.
+    # SCHEMA_PATH_PREFIX
+}
+
+SIMPLE_JWT = {
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+}
