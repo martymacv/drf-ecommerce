@@ -1,0 +1,18 @@
+import secrets
+from string import ascii_uppercase, digits
+from apps.common.models import BaseModel
+
+
+def generate_unique_code(model: BaseModel, field: str) -> str:
+
+    allowed_chars = ascii_uppercase + digits
+    unique_code = "".join(
+        secrets.choice(allowed_chars)
+        for _ in range(12)
+    )
+    similar_object_exists = model.objects.filter(
+        **{field: unique_code}
+    ).exists()
+    if not similar_object_exists:
+        return unique_code
+    return generate_unique_code(model, field)
