@@ -13,11 +13,11 @@ from apps.shop.models import Review
 ```
 ```
 # Модуль
-from apps.shop.views import ProductReviewsView
+from apps.sellers.views import ProductReviewsView
 ```
 ```
 # Модуль
-from apps.seller.utils import (
+from apps.sellers.utils import (
     SellerCalculateMixin, SellerCheckMixin
 )
 ```
