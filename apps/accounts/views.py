@@ -1,6 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from apps.accounts.serializers import CreateUserSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from apps.accounts.serializers import MyTokenObtainPairSerializer
 
 
 class RegisterAPIView(APIView):
@@ -12,3 +14,7 @@ class RegisterAPIView(APIView):
             serializer.save()
             return Response({'message': 'success'}, status=201)
         return Response(serializer.errors, status=400)
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer

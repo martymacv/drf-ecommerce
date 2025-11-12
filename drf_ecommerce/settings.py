@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_filters',
     'apps.accounts',
     'apps.profiles',
     'apps.sellers',
@@ -141,6 +142,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2
 }
 
 SPECTACULAR_SETTINGS = {
@@ -151,7 +154,9 @@ SPECTACULAR_SETTINGS = {
     # DESCRIPTION (строка): Краткое описание API.
     # VERSION (строка): Версия API.
     # SERVE_INCLUDE_SCHEMA (булево): Включать ли схему OpenAPI в Swagger UI (по умолчанию True).
-    # SWAGGER_UI_SETTINGS (словарь): Настройки для Swagger UI.
+    "SWAGGER_UI_SETTINGS": {
+        "persistAuthorization": True,  # не сбрасывать авторизацию
+    },
     # ENUM_NAME_OVERRIDES (словарь): Настройка имен для элементов перечислений.
     # SCHEMA_PATH_PREFIX
 }

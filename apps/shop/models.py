@@ -1,7 +1,9 @@
+from turtle import mode
 from autoslug import AutoSlugField
 from django.db import models
 from apps.common.models import BaseModel, IsDeletedModel
 from apps.sellers.models import Seller
+from apps.accounts.models import User
 
 
 class Category(BaseModel):
@@ -51,3 +53,28 @@ class Product(IsDeletedModel):
 
     def __str__(self):
         return str(self.name)
+
+
+RATING_CHOICES = [
+    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5)
+]
+
+
+class Review(IsDeletedModel):
+    """
+    Модель данных для отзывов о продукте (Product)
+    """
+    user = models.ForeignKey(
+        # каждый отзыв связан с одним пользователем
+        User, on_delete=models.CASCADE, related_name="reviews"
+    )
+    product = models.ForeignKey(
+        # каждый отзыв связан с одним продуктом
+        Product, on_delete=models.CASCADE, related_name="reviews"
+    )
+    rating = models.SmallIntegerField(
+        choices=RATING_CHOICES, default=None, null=True, blank=True
+    )
+    text = models.TextField(
+        null=True, blank=True
+    )
