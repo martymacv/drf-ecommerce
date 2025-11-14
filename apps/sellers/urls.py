@@ -17,7 +17,8 @@ urlpatterns = [
         "products/<slug:slug>/", SellerProductView.as_view()
     ),
     path(
-        "products/<slug:slug>/reviews/", ProductReviewsView.as_view()
+        "products/<slug:slug>/reviews/", ProductReviewsView.as_view(),
+        name='products_reviews'
     ),
     path(
         "orders/", SellerOrdersView.as_view()

@@ -1,0 +1,3 @@
+[TYPECHECK]
+# Игнорировать переопределение имен в фикстурах pytest
+redefined-outer-name=0

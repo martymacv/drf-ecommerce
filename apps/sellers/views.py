@@ -1,7 +1,6 @@
 from django.db.models import Avg
 
 from drf_spectacular.utils import extend_schema, OpenApiResponse
-from requests import delete
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -300,6 +299,7 @@ class ProductReviewsView(
             "Метод для создания отзыва о продукте. "
             "Один пользователь может оставить только один отзыв"
         ),
+        request=CreateProductReviewSerializer,
         tags=tags
     )
     def post(self, request, *args, **kwargs):
@@ -341,6 +341,7 @@ class ProductReviewsView(
             "В этом ендпоинте реализована возможность "
             "изменить свой отзыв о продукте"
         ),
+        request=CreateProductReviewSerializer,
         tags=tags
     )
     def put(self, request, *args, **kwargs):
